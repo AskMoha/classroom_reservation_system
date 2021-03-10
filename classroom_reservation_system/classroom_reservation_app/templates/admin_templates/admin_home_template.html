@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classroom Reservation System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'classroom_reservation_system/home.css' %}">
+</head>
+<body style="font-family : lato, tahoma">
+<h3 style="text-align: center">Bienvenue: {{ user.username }}</h3>
+
+
+<div class="cards-list">
+    <div class="card 1">
+        <div class="card_image">
+            <img width="200" height="50" src="{% static 'classroom_reservation_system/prof.png' %}" alt="pic">
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div class="card_title title-black">
+            <a href="add_staff" style="color:rgb(209, 65, 65)"><p>Ajouter un enseignant</p></a>
+        </div>
+    </div>
+
+    <div class="card 2">
+        <div class="card_image">
+            <img width="200" height="50" src="{% static 'classroom_reservation_system/etudiant.png' %}" alt="pic">
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div class="card_title title-black">
+            <a href="/add_student" style="color:rgb(209, 65, 65)"><p>Ajouter un étudiant</p></a>
+        </div>
+    </div>
+
+    <div class="card 3">
+        <div class="card_image">
+            <img width="200" height="50" src="{% static 'classroom_reservation_system/class.png' %}" alt="pic">
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div class="card_title title-black">
+            <a href="/add_classroom" style="color:rgb(209, 65, 65)"><p>Ajouter une salle</p></a>
+        </div>
+    </div>
+
+
+    <div class="cards-list">
+        <div class="card 4">
+            <div class="card_image">
+                <img width="100" height="50" src="{% static 'classroom_reservation_system/modif_bat.png' %}" alt="pic">
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <div class="card_title title-black">
+                <a href="/manage_classroom" style="color:rgb(209, 65, 65)"><p>Modifier une salle</p></a>
+            </div>
+        </div>
+
+        <div class="card 6">
+            <div class="card_image">
+                <img width="100" height="50" src="{% static 'classroom_reservation_system/building.png' %}" alt="pic">
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <div class="card_title title-black">
+                <a href="/add_building" style="color:rgb(209, 65, 65)"><p>Ajouter un bâtiment</p></a>
+            </div>
+        </div>
+
+        <div class="card 7">
+            <div class="card_image">
+                <img width="100" height="50" src="{% static 'classroom_reservation_system/tool.png' %}" alt="pic">
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <div class="card_title title-black">
+                <a href="/manage_building" style="color:rgb(209, 65, 65)"><p>Modifier un bâtiment</p></a>
+            </div>
+        </div>
+    </div>
+    <script>function mafonction(){
+ x = document.getElementById("batiment").value;
+        document.getElementById("jsp").setAttribute("href","/export/"+ x);
+    }
+    </script>
+    <div class="card 8">
+        <div class="card_image">
+            <img width="100" height="50" src="{% static 'classroom_reservation_system/CSV.png' %}" alt="pic">
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div class="card_title title-black">
+
+            <select onchange="mafonction()" id="batiment" name="batiment">
+                {% for bat in batiment%}
+                <option value="{{bat.num_batiment}}">{{bat.nom}}</option>
+                {% endfor %}
+            </select>
+            <script>
+            var x = document.getElementById("batiment").value;
+
+document.write("<a id = 'jsp' href='/export/"+ x +"' style = 'color:rgb(209, 65, 65)'><p>Exporter en CSV</p></a>");
+
+            </script>
+        </div>
+    </div>
+    <script>function mafonction2(){
+ x2 = document.getElementById("batiment2").value;
+        document.getElementById("jsp2").setAttribute("href","/export_json/"+ x2);
+    }
+
+    </script>
+    <div class="card 9">
+        <div class="card_image">
+            <img width="100" height="50" src="{% static 'classroom_reservation_system/XML.png' %}" alt="pic">
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+
+        <div class="card_title title-black">
+            <select onchange="mafonction2()" id="batiment2">
+                {% for bat in batiment %}
+                <option value="{{bat.num_batiment}}">{{bat.nom}}</option>
+                {% endfor %}
+            </select>
+            <script>
+            var x2 = document.getElementById("batiment2").value;
+
+document.write("<a id = 'jsp2' href='/export_json/"+ x2 +"' style = 'color:rgb(209, 65, 65)'><p>Exporter en JSON</p></a>");
+
+            </script>
+        </div>
+    </div>
+
+    <div class="card 10">
+        <div class="card_image">
+            <img width="100" height="50" src="{% static 'classroom_reservation_system/CSV.png' %}" alt="pic">
+        </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <div class="card_title title-black">
+            <form action="importation" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <center>
+                    <input type="file" name="document">
+                </center>
+                <button type="submit" class="btn btn-danger">Importer</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+{% include 'admin_templates/footer_template_2.html' %}
+</html>

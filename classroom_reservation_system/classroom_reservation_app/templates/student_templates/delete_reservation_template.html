@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supprimer une réservation | IMR</title>
+
+</head>
+{% include 'student_templates/sidebar2.html' %}
+<body>
+<div>
+        <center>
+        <p style="font-family: lato, sans-serif; margin-top:20%"><b>Etes-vous sûr de vouloir annuler votre réservation ?
+        </p></p>
+
+        <form role="form" action="/delete_reservation_save_student" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ reservation.idreservation }}">
+            <input type="hidden" name="idetudiant" value="{{ user.etudiants.idetudiant }}">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <h4>{{ message }}</h4>
+            {% endif %}
+            {% if message.tags == 'success' %}
+            <h4>{{ message }}</h4>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            <button style="margin-bottom:10%" type="submit" class="btn btn-danger">Confirmer</button>
+
+        </center>
+        </form>
+</div>
+
+</body>
+{% include 'student_templates/footer.html' %}
+
+</html>

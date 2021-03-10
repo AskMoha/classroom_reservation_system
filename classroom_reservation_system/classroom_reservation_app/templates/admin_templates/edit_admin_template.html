@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classroom Reservation System</title>
+</head>
+<body>
+    <form role="form" action="/edit_admin_save" method="post">
+        {% csrf_token %}
+        <label>Username</label>
+            <input type="text" name="username" value="{{ user.username }}"><br><br>
+
+        <label>Nom</label>
+            <input type="text" name="last_name" value="{{ user.last_name }}">
+            <input type="hidden" name="id" value="{{ user.id }}"><br><br>
+
+        <label>Prénom</label>
+            <input type="text" name="first_name" value="{{ user.first_name }}"><br><br>
+
+        <label>Email</label>
+            <input type="email" name="email" value="{{ user.email }}"><br><br>
+
+        <label>Mot de passe</label>
+            <input type="password" name="password" value="{{ user.password }}"><br><br>
+
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <h4>{{ message }}</h4>
+                {% endif %}
+                {% if message.tags == 'success' %}
+                    <h4>{{ message }}</h4>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <button type="submit">Confirmer</button><br><br>
+    </form>
+
+</body>
+</html>

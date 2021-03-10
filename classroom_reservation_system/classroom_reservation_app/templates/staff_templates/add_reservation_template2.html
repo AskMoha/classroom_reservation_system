@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html lang="fr">
+
+<head>
+    <title> Batiments | IMR </title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=-1"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+{% include "staff_templates/add_reservation_template.html" %}
+<body>
+<script>
+      Matériels="{{materiel}}";
+      nb_pers={{nb_pers}};
+      durée={{duree}};
+      date="{{date}}";
+      document.getElementById("Matériels").value=Matériels;
+      document.getElementById("durée").value=durée;
+      document.getElementById("datePicker").value=date;
+      document.getElementById("nb_personnes").value=nb_pers;
+
+</script>
+<div>
+
+    <table class="table" style="width:150px;margin-left:10%;">
+        <input type="hidden" id="heure" value="">
+        <script>
+            var nb_salle = 15;
+            var heure_debut = 10;
+            var heure_fermeture = 22;
+            var disponible = true;
+            function toutdispo() {
+               for (i = heure_debut; i <= heure_fermeture; i++) {
+                  document.getElementById("" + i).style.backgroundColor = "#acb5ae";
+                  document.getElementById("" + i).setAttribute("onclick", "ouais(true," + i + ")");
+               }
+            }
+
+            function verifdispo(h) {
+               nb_reservation = 0;
+
+               if (nb_reservation == nb_salle || h+durée>heure_fermeture) {
+                  dispo = false;
+               }else
+               {
+                  dispo=true;
+               }
+
+               if (dispo == false) {
+                  document.getElementById(h).style.backgroundColor = "#4d524e";
+                  document.getElementById(h).setAttribute("onclick", "ouais(false," + h + ")");
+               }
+            }
+
+        </script>
+        <tr>
+            <script>
+               function ouais(disponible, i) {
+                  maax=i+durée;
+
+                  if (disponible == true) {
+                     document.getElementById("heure").value = i;
+                     if (window.confirm("Vous allez réserver de "+i+"h à "+ maax +"h")) {
+                        document.location.href="/add_reservation/"+ "{{ batiment.num_batiment }}"+"/"+date+"/"+Matériels +"/"+nb_pers+"/"+durée+"/"+i;
+                     }
+                  }
+               }
+               for (i = heure_debut; i <= heure_fermeture; i++) {
+                  disponible = true;
+                  document.write("<th scope='col' style='padding:30px'> " + i + "h </th> ");
+               }
+
+            </script>
+        </tr>
+
+        <tr>
+            <script>
+               for (i = heure_debut; i <= heure_fermeture; i++) {
+                  document.write("<th  scope='col'onclick='ouais(" + disponible + "," + i + ")' id='" + i + "' style='background-color: #80b7c3;padding:30px;border: 3px solid rgb(190, 190, 190);'> </th>")
+                  verifdispo(i);
+               }
+
+            </script>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

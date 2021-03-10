@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Classroom Reservation System | Log in</title>
+<link rel="stylesheet" type="text/css" href="{% static 'classroom_reservation_system/signin.css' %}">
+
+    <link href="https://fonts.google.com/?query=averta/css?family=Averta">
+
+</head>
+<!--<body class="hold-transition login-page">
+      <form action="/doLogin" method="post">
+        {% csrf_token %}
+          <input type="email" placeholder="Email" name="email">
+          <input type="password" placeholder="Password" name="password">
+          <button type="submit" >Sign In</button>
+
+            {% if messages %}
+              {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <h3>{{ message }}</h3>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+
+      </form> !-->
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Se connecter </h2>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img width = "350" height = "100" src="{% static 'classroom_reservation_system/nanterre.jpg' %}" alt="logo">
+    </div>
+
+<body class = "hold-transition login-page">
+	<div class="login-html">
+		<div class="login-form">
+			<div class="sign-in-htm">
+                <form action="/doLogin" method="post">
+				<div class="group">
+                     {% csrf_token %}
+					<label for="Email" class="Email" style = "margin-left: 33px" >Email</label>
+					<input id="email" type="email" class="input" name = "email">
+				</div>
+				<div class="group">
+					<label for="password" class="label">Password </label>
+					<input id="password" type="password" class="input" data-type="password" name = "password">
+                     {% if messages %}
+              {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <h3>{{ message }}</h3>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+                    <div class="group">
+					<input type="submit" class="button" value="Se connecter">
+				</div>
+				</div>
+                </form>
+				<div class="hr"></div>
+			</div>
+
+		</div>
+	</div>
+    </body>
+</html>

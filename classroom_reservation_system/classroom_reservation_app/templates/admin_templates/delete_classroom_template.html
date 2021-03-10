@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Supprimer une salle | IMR</title>
+
+</head>
+{% include 'admin_templates/sidebar_template.html' %}
+<body>
+<div>
+    <center>
+        <p style="font-family: lato, sans-serif; margin-top:20%"><b>Etes-vous sûr de vouloir supprimer la salle ?
+        </p></p>
+
+        <form role="form" action="/delete_classroom_save" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ salle.idsalle }}">
+
+            <button style="margin-bottom:10%" type="submit" class="btn btn-danger">Confirmer</button>
+
+    </center>
+    </form>
+</div>
+
+</body>
+{% include 'admin_templates/footer_template_2.html' %}
+
+
+</html>
